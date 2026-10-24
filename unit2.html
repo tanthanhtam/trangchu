@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tiếng Anh Tương Tác</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #cbd5e1;
+            --correct: #16a34a;
+            --correct-bg: #dcfce7;
+            --wrong: #dc2626;
+            --wrong-bg: #fee2e2;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .exercise-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border);
+        }
+
+        .exercise-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .question-item {
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+
+        /* Input Styles */
+        input[type="text"], select {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Drag and Drop Word Bank */
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .draggable-word {
+            background-color: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            font-size: 0.95rem;
+        }
+
+        .draggable-word:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            display: inline-block;
+            min-width: 100px;
+            height: 32px;
+            border: 2px dashed var(--border);
+            border-radius: 6px;
+            vertical-align: middle;
+            background: white;
+            padding: 2px 6px;
+            text-align: center;
+        }
+
+        /* Sentence Reordering */
+        .reorder-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+            min-height: 40px;
+            padding: 8px;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .word-chip {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Buttons & Actions */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Result Feedback */
+        .correct-answer {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct) !important;
+            color: var(--correct);
+        }
+
+        .wrong-answer {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong) !important;
+            color: var(--wrong);
+        }
+
+        .feedback-text {
+            font-size: 0.85rem;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .score-box {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #e0e7ff;
+            color: var(--primary);
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BÀI TẬP TIẾNG ANH TƯƠNG TÁC</h1>
+
+    <!-- BÀI TẬP 2: Bảng chọn SO SÁNH HƠN -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 2: Choose the correct comparative form</h2>
+        <div class="question-item">
+            1. fast &rightarrow; 
+            <select data-answer="faster">
+                <option value="">-- Chọn --</option>
+                <option value="more fast">more fast</option>
+                <option value="faster">faster</option>
+                <option value="fastly">fastly</option>
+            </select>
+        </div>
+        <div class="question-item">
+            2. happily &rightarrow; 
+            <select data-answer="more happily">
+                <option value="">-- Chọn --</option>
+                <option value="happier">happier</option>
+                <option value="more happily">more happily</option>
+                <option value="happilyer">happilyer</option>
+            </select>
+        </div>
+        <div class="question-item">
+            3. badly &rightarrow; 
+            <select data-answer="worse">
+                <option value="">-- Chọn --</option>
+                <option value="badder">badder</option>
+                <option value="more badly">more badly</option>
+                <option value="worse">worse</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 3: KÉO THẢ TỪ VÀO Ô TRỐNG -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 3: Drag and drop words into the blanks</h2>
+        <div class="word-bank" id="wordBank3">
+            <div class="draggable-word" draggable="true" id="w1">cattle</div>
+            <div class="draggable-word" draggable="true" id="w2">fruit</div>
+            <div class="draggable-word" draggable="true" id="w3">crops</div>
+            <div class="draggable-word" draggable="true" id="w4">hospitable</div>
+        </div>
+
+        <div class="question-item">
+            1. We helped the farmers herd <span class="drop-zone" data-answer="cattle"></span>.
+        </div>
+        <div class="question-item">
+            2. They are helping their parents pick <span class="drop-zone" data-answer="fruit"></span> in the orchard.
+        </div>
+        <div class="question-item">
+            3. At harvest time farmers are busy cutting and collecting <span class="drop-zone" data-answer="crops"></span>.
+        </div>
+        <div class="question-item">
+            4. The local people are kind and <span class="drop-zone" data-answer="hospitable"></span> to visitors.
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 4 & 6: CHỌN ĐÁP ÁN ĐÚNG -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 4 & 6: Choose the correct word form</h2>
+        <div class="question-item">
+            1. It usually rains 
+            <select data-answer="more heavily">
+                <option value="">-- Chọn --</option>
+                <option value="heavier">heavier</option>
+                <option value="more heavily">more heavily</option>
+            </select> in my country than in yours.
+        </div>
+        <div class="question-item">
+            2. People in the countryside work 
+            <select data-answer="harder">
+                <option value="">-- Chọn --</option>
+                <option value="harder">harder</option>
+                <option value="more hard">more hard</option>
+            </select> than those in the city.
+        </div>
+        <div class="question-item">
+            3. Horses, mountain bikes and feet work 
+            <select data-answer="better">
+                <option value="">-- Chọn --</option>
+                <option value="good">good</option>
+                <option value="better">better</option>
+            </select> on grasslands.
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 5: ĐÁNH MÁY CÂU TRẢ LỜI -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 5: Type the comparative form of adverbs</h2>
+        <div class="question-item">
+            1. Horses can run <input type="text" data-answer="faster" placeholder="fast"> than buffalos.
+        </div>
+        <div class="question-item">
+            2. You should check your paper <input type="text" data-answer="more carefully" placeholder="carefully"> before handing it in.
+        </div>
+        <div class="question-item">
+            3. All these students are good, but some work <input type="text" data-answer="harder" placeholder="hard"> than others.
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 9: SẮP XẾP CÂU KÉO THẢ / BẤM TỪ -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 9: Click words to arrange into a correct sentence</h2>
+        <div class="question-item" data-type="reorder" data-answer="Can you speak more slowly so I can understand you?">
+            <p><strong>1. Reorder:</strong> Can / speak / you / slowly / more / so / I / understand / can / you ?</p>
+            <div class="word-bank reorder-bank">
+                <span class="word-chip">Can</span>
+                <span class="word-chip">you</span>
+                <span class="word-chip">speak</span>
+                <span class="word-chip">more</span>
+                <span class="word-chip">slowly</span>
+                <span class="word-chip">so</span>
+                <span class="word-chip">I</span>
+                <span class="word-chip">can</span>
+                <span class="word-chip">understand</span>
+                <span class="word-chip">you?</span>
+            </div>
+            <div class="reorder-container"></div>
+        </div>
+    </div>
+
+    <!-- BÀI TẬP 10 & 11: ĐÁNH MÁY VIẾT LẠI CÂU -->
+    <div class="exercise-card">
+        <h2 class="exercise-title">EXERCISE 10 & 11: Rewrite sentences using comparative forms</h2>
+        <div class="question-item">
+            1. I am a faster worker than Tom is. (fast)<br>
+            &rightarrow; I work <input type="text" style="width: 80%;" data-answer="faster than Tom does" placeholder="Nhập câu trả lời...">
+        </div>
+        <div class="question-item">
+            2. Phong is a faster swimmer than Phuc. (fast)<br>
+            &rightarrow; Phong swims <input type="text" style="width: 80%;" data-answer="faster than Phuc" placeholder="Nhập câu trả lời...">
+        </div>
+    </div>
+
+    <button class="btn-submit" onclick="checkAnswers()">KIỂM TRA KẾT QUẢ</button>
+    <div id="scoreBox" class="score-box"></div>
+</div>
+
+<script>
+    // Drag & Drop Logic for Exercise 3
+    const draggables = document.querySelectorAll('.draggable-word');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.id);
+        });
+    });
+
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        zone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.getElementById(id);
+            if (zone.children.length === 0) {
+                zone.appendChild(draggedElement);
+            }
+        });
+    });
+
+    // Click Word to Reorder Logic for Exercise 9
+    document.querySelectorAll('.reorder-bank').forEach(bank => {
+        const container = bank.nextElementSibling;
+        bank.querySelectorAll('.word-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                if (chip.parentElement === bank) {
+                    container.appendChild(chip);
+                } else {
+                    bank.appendChild(chip);
+                }
+            });
+        });
+    });
+
+    // Check Answers Function
+    function checkAnswers() {
+        let total = 0;
+        let correctCount = 0;
+
+        // 1. Check Select Inputs
+        document.querySelectorAll('select').forEach(select => {
+            total++;
+            const userAns = select.value.trim().toLowerCase();
+            const correctAns = select.getAttribute('data-answer').toLowerCase();
+
+            if (userAns === correctAns) {
+                correctCount++;
+                select.className = 'correct-answer';
+            } else {
+                select.className = 'wrong-answer';
+            }
+        });
+
+        // 2. Check Text Inputs
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            total++;
+            const userAns = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+            const correctAns = input.getAttribute('data-answer').toLowerCase().replace(/\s+/g, ' ');
+
+            if (userAns === correctAns) {
+                correctCount++;
+                input.className = 'correct-answer';
+            } else {
+                input.className = 'wrong-answer';
+            }
+        });
+
+        // 3. Check Drag and Drop Zones
+        dropZones.forEach(zone => {
+            total++;
+            const child = zone.firstElementChild;
+            const correctAns = zone.getAttribute('data-answer').toLowerCase();
+            
+            if (child && child.innerText.trim().toLowerCase() === correctAns) {
+                correctCount++;
+                zone.className = 'drop-zone correct-answer';
+            } else {
+                zone.className = 'drop-zone wrong-answer';
+            }
+        });
+
+        // 4. Check Reorder Items
+        document.querySelectorAll('.question-item[data-type="reorder"]').forEach(item => {
+            total++;
+            const container = item.querySelector('.reorder-container');
+            const chips = container.querySelectorAll('.word-chip');
+            const userAns = Array.from(chips).map(c => c.innerText).join(' ').trim();
+            const correctAns = item.getAttribute('data-answer').trim();
+
+            if (userAns.toLowerCase() === correctAns.toLowerCase()) {
+                correctCount++;
+                container.className = 'reorder-container correct-answer';
+            } else {
+                container.className = 'reorder-container wrong-answer';
+            }
+        });
+
+        // Show Score
+        const scoreBox = document.getElementById('scoreBox');
+        scoreBox.style.display = 'block';
+        scoreBox.innerText = `Kết quả: ${correctCount} / ${total} câu đúng (${Math.round((correctCount/total)*100)}%)`;
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

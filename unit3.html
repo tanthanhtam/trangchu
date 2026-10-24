@@ -1,0 +1,1059 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÀI TẬP TIẾNG ANH 8 - Global Success</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .drag-item {
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+        .drag-item:active {
+            cursor: grabbing;
+        }
+        .drop-zone.drag-over {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-16">
+
+    <!-- Top Header -->
+    <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <div class="text-xs font-semibold tracking-wider uppercase text-blue-200"> STUDYING ENGLISH WITH MS.THU 0942642312 </div>
+                <h1 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-yellow-400"></i> BÀI TẬP TIẾNG ANH 8 (Global Success)
+                </h1>
+            </div>
+            
+            <!-- Dashboard Quick Info -->
+            <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20">
+                <div class="text-center">
+                    <div class="text-xs text-blue-200 uppercase font-bold">Điểm số</div>
+                    <div id="total-score-display" class="text-xl font-extrabold text-yellow-300">0 / 85</div>
+                </div>
+                <div class="h-8 w-px bg-white/20"></div>
+                <div class="text-center">
+                    <div class="text-xs text-blue-200 uppercase font-bold">Tiến độ</div>
+                    <div id="progress-percent-display" class="text-xl font-extrabold text-green-300">0%</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="w-full bg-blue-950 h-2">
+            <div id="global-progress-bar" class="bg-gradient-to-r from-green-400 to-yellow-400 h-2 w-0 transition-all duration-500"></div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 mt-6">
+        
+        <!-- Sticky Action Control Bar -->
+        <div class="bg-white p-4 rounded-xl shadow-md border border-gray-200 mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2 text-sm font-medium text-gray-600">
+                <i class="fa-solid fa-layer-group text-blue-600"></i>
+                <span>Tổng cộng 10 bài tập tương tác</span>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+                <button onclick="checkAllAnswers()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-check-double"></i> Chấm Điểm Tất Cả
+                </button>
+                <button onclick="toggleShowSolutions()" id="btn-show-solutions" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-eye"></i> Hiện Đáp Án
+                </button>
+                <button onclick="resetAll()" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-rotate-left"></i> Làm Lài Từ Đầu
+                </button>
+            </div>
+        </div>
+
+        <!-- EXERCISE 1: DRAG AND DROP -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex1-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">1</span>
+                    EXERCISE 1: Match the word/phrase with the correct picture
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex1" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/8</span>
+                    <i id="icon-ex1-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+            
+            <div id="ex1-content" class="p-6">
+                <p class="text-sm text-gray-600 mb-4">Kéo thả các cụm từ bên dưới vào ô trống tương ứng dưới mỗi hình ảnh:</p>
+                
+                <!-- Word Bank -->
+                <div id="ex1-wordbank" class="flex flex-wrap gap-2 p-4 bg-gray-100 rounded-xl mb-6 border border-dashed border-gray-300 min-h-[60px]">
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="pressure">pressure</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="sport club">sport club</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="chess club">chess club</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="language club">language club</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="art and crafts club">art and crafts club</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="forum">forum</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="social media">social media</div>
+                    <div class="drag-item bg-white px-3 py-1.5 rounded-lg border border-gray-300 text-sm font-medium shadow-sm hover:border-blue-500 text-blue-800" draggable="true" data-word="teamwork">teamwork</div>
+                </div>
+
+                <!-- Picture Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Item 1 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-amber-100 rounded-lg flex flex-col items-center justify-center text-amber-700 mb-2 border border-amber-200">
+                            <i class="fa-solid fa-chess text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Bàn cờ vua & Người chơi</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="chess club" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-emerald-100 rounded-lg flex flex-col items-center justify-center text-emerald-700 mb-2 border border-emerald-200">
+                            <i class="fa-solid fa-users text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Nhóm làm việc cùng nhau</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="teamwork" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-blue-100 rounded-lg flex flex-col items-center justify-center text-blue-700 mb-2 border border-blue-200">
+                            <i class="fa-solid fa-comments text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Thảo luận trực tuyến</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="forum" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-purple-100 rounded-lg flex flex-col items-center justify-center text-purple-700 mb-2 border border-purple-200">
+                            <i class="fa-solid fa-language text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Học ngoại ngữ</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="language club" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-red-100 rounded-lg flex flex-col items-center justify-center text-red-700 mb-2 border border-red-200">
+                            <i class="fa-solid fa-face-frown-open text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Căng thẳng, áp lực</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="pressure" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-indigo-100 rounded-lg flex flex-col items-center justify-center text-indigo-700 mb-2 border border-indigo-200">
+                            <i class="fa-solid fa-share-nodes text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Các Mạng xã hội</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="social media" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-orange-100 rounded-lg flex flex-col items-center justify-center text-orange-700 mb-2 border border-orange-200">
+                            <i class="fa-solid fa-palette text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Vẽ & Làm thủ công</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="art and crafts club" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="bg-gray-50 border rounded-xl p-3 flex flex-col items-center">
+                        <div class="w-full h-32 bg-cyan-100 rounded-lg flex flex-col items-center justify-center text-cyan-700 mb-2 border border-cyan-200">
+                            <i class="fa-solid fa-football text-4xl mb-1"></i>
+                            <span class="text-xs font-semibold">Thể thao Hoạt động</span>
+                        </div>
+                        <div class="drop-zone w-full min-h-[42px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center bg-white p-1" data-correct="sport club" data-ex="1"></div>
+                        <div class="feedback-msg text-xs mt-1 font-semibold hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 2: FILL IN BLANKS (VOCABULARY) -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex2-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">2</span>
+                    EXERCISE 2: Complete sentences with a suitable word/phrase from the box
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex2" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex2-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex2-content" class="p-6">
+                <div class="p-3 bg-blue-50 rounded-lg border border-blue-200 text-sm font-semibold text-blue-900 mb-4">
+                    Gợi ý: pressure, uploaded, browsed, checked, logs, connects, forum, pressure, bully
+                </div>
+
+                <div class="space-y-4 text-sm">
+                    <!-- Q1 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>1. Our teacher <input type="text" data-ex="2" data-correct="uploaded" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> a video of our last meeting in our forum.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>2. I <input type="text" data-ex="2" data-correct="browsed" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> the school website and found pictures of school activities.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>3. He is a big <input type="text" data-ex="2" data-correct="bully" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> and scares his weaker classmates.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>4. Our teacher <input type="text" data-ex="2" data-correct="uploaded" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> a video of our last meeting in our forum for everyone to see.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q5 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>5. We have <input type="text" data-ex="2" data-correct="pressure" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> from our exams, peers, and parents.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>6. She <input type="text" data-ex="2" data-correct="connects" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> with some old friends at the English club.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q7 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>7. She was chatting with her friends, so she couldn't focus on the lesson in the <input type="text" data-ex="2" data-correct="forum" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium">.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q8 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>8. Tom <input type="text" data-ex="2" data-correct="checked" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> the notifications and saw some new posts.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q9 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>9. Mi often <input type="text" data-ex="2" data-correct="logs" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium"> on to her Instagram account to chat with her friends.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                    <!-- Q10 -->
+                    <div class="p-3 rounded-lg hover:bg-gray-50 border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>10. We try to meet our parents' <input type="text" data-ex="2" data-correct="pressure" class="border-b-2 border-blue-400 focus:border-blue-600 outline-none px-2 py-0.5 w-32 text-center font-medium">, but it is hard.</div>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 3: SIMPLE (S) OR COMPOUND (C) -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex3-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">3</span>
+                    EXERCISE 3: Write S for simple sentences and C for compound sentences
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex3" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex3-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex3-content" class="p-6">
+                <div id="ex3-questions" class="space-y-3 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 4: AND / BUT / OR / SO / FOR -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex4-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">4</span>
+                    EXERCISE 4: Complete sentences with: and / but / or / so / for
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex4" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex4-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex4-content" class="p-6">
+                <div id="ex4-questions" class="space-y-3 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 5: UNDERLINE CORRECT WORDS -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex5-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">5</span>
+                    EXERCISE 5: Choose the correct conjunction in brackets
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex5" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex5-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex5-content" class="p-6">
+                <div id="ex5-questions" class="space-y-3 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 6: CONJUNCTIVE ADVERBS -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex6-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">6</span>
+                    EXERCISE 6: Complete with conjunctive adverbs (However, Therefore, Nevertheless, etc.)
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex6" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex6-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex6-content" class="p-6">
+                <div id="ex6-questions" class="space-y-3 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 7: READING CLOZE TEST -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex7-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">7</span>
+                    EXERCISE 7: Reading - Choose the best option A, B, C or D
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex7" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/5</span>
+                    <i id="icon-ex7-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex7-content" class="p-6">
+                <!-- Passage -->
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-sm leading-relaxed mb-6">
+                    Social networking is a technology that is becoming more and more <b>(1) ______</b> these days because of how user-friendly it is. Social media websites like Facebook, Instagram, Twitter, and others <b>(2) ______</b> people to communicate with one another across distances. When we look at social media’s positive aspects, there <b>(3) ______</b> several advantages. Despite these clear benefits, social networking is viewed as one of society’s most damaging forces. <b>(4) ______</b> social media is not used responsibly, it can have detrimental effects on a person who is using it. In conclusion, social networking has both advantages and disadvantages. Social Media is <b>(5) ______</b> when used excessively but useful if used productively.
+                </div>
+
+                <div id="ex7-questions" class="space-y-4 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 8: READING COMPREHENSION -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex8-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">8</span>
+                    EXERCISE 8: Read the passage & Circle the best answer A, B, or C
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex8" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/5</span>
+                    <i id="icon-ex8-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex8-content" class="p-6">
+                <!-- Passage -->
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-sm leading-relaxed mb-6">
+                    With approximately 2.96 billion users as of 2022, Facebook is undoubtedly one of the most popular social networking sites in the globe. As for students, they use Facebook for different purposes, including entertainment or academic learning. First, it is a relaxing channel where students comfortably vent their negative thoughts on their school life via a status, share unforgettable memories or multiple funny clips to relieve stress. Additionally, they can easily connect with those who share the same interests through various Facebook pages where they enjoy reading top comments or discuss hot topics with each other. Second, Facebook, regarded as the biggest knowledge platform, helps learners to get access to an array of free learning materials and even ask for specialised knowledge from other friendly users. Besides, it's very convenient for students to create a Facebook group or Facebook Messenger to upload and share lectures, prepare for class presentations as well as do assignments together.
+                </div>
+
+                <div id="ex8-questions" class="space-y-4 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 9: SENTENCE BUILDING -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex9-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">9</span>
+                    EXERCISE 9: Make sentences using the given words and phrases
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex9" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex9-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex9-content" class="p-6">
+                <div id="ex9-questions" class="space-y-4 text-sm"></div>
+            </div>
+        </section>
+
+        <!-- EXERCISE 10: REWRITE SENTENCES WITH CONJUNCTIONS -->
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200 flex items-center justify-between cursor-pointer" onclick="toggleSection('ex10-content')">
+                <h2 class="text-lg font-bold text-blue-900 flex items-center gap-2">
+                    <span class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">10</span>
+                    EXERCISE 10: Connect sentences using the given conjunctions
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span id="score-ex10" class="text-xs font-semibold px-2.5 py-1 bg-gray-200 text-gray-700 rounded-full">0/10</span>
+                    <i id="icon-ex10-content" class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+                </div>
+            </div>
+
+            <div id="ex10-content" class="p-6">
+                <div id="ex10-questions" class="space-y-4 text-sm"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Structures
+        const ex3Data = [
+            { q: "1. We work together on different projects.", ans: "S" },
+            { q: "2. Teens need good friends and tolerant teachers at schools.", ans: "S" },
+            { q: "3. Teenagers are often very active and talkative.", ans: "S" },
+            { q: "4. He often chats with his friends on Facebook Messenger.", ans: "S" },
+            { q: "5. She is a smart student, and she is an active member of our club.", ans: "C" },
+            { q: "6. She plays chess very well, and she won the first prize last year.", ans: "C" },
+            { q: "7. Sports activities at school help me relax.", ans: "S" },
+            { q: "8. Teens should learn teamwork, and they should also have communication skills.", ans: "C" },
+            { q: "9. My friends and I joined a sports competition last year.", ans: "S" },
+            { q: "10. He is a club member, but he never participates in any of the activities.", ans: "C" }
+        ];
+
+        const ex4Data = [
+            { text: "1. I feel tired, _____ I feel weak.", ans: "and" },
+            { text: "2. The Japanese eat healthily, _____ they live for a long time.", ans: "so" },
+            { text: "3. I have flu, _____ I don't feel very tired.", ans: "but" },
+            { text: "4. You should eat less fast food, _____ you can put on weight.", ans: "or" },
+            { text: "5. You can go and see the doctor, _____ you can go to bed now and rest.", ans: "or" },
+            { text: "6. The Japanese eat a lot of rice, _____ they eat lots of fish, too.", ans: "and" },
+            { text: "7. I want to eat ice-cream, _____ I have a sore throat.", ans: "but" },
+            { text: "8. You should eat less fast food, _____ you can put on weight.", ans: "or" },
+            { text: "9. The Americans often eat fast food, _____ many of them are overweight.", ans: "so" },
+            { text: "10. You can walk, _____ you can ride a bike to get there.", ans: "or" }
+        ];
+
+        const ex5Data = [
+            { q: "1. Some teenagers never join in any forums for help, (so / because) they prefer talking to their parents about their problems.", options: ["so", "because"], ans: "because" },
+            { q: "2. In some forums teens can get advice from peers; (therefore / however), my friends often use those forums to share their problems.", options: ["therefore", "however"], ans: "therefore" },
+            { q: "3. Many teenagers want to support needy people, (but / so) they join community service projects.", options: ["but", "so"], ans: "so" },
+            { q: "4. Our students can participate in any club they like, (but / or) they shouldn't try to join all the school clubs at the same time.", options: ["but", "or"], ans: "but" },
+            { q: "5. Minh told his teachers about the school bullies; (therefore / otherwise), the bullies wouldn't leave him alone.", options: ["therefore", "otherwise"], ans: "otherwise" },
+            { q: "6. Parents should give teens some freedom, (but / so) they should also set limits.", options: ["but", "so"], ans: "but" },
+            { q: "7. We don't cheat on exams, (for / and) it is a wrong thing to do.", options: ["for", "and"], ans: "for" },
+            { q: "8. Lan wants to join the school music club; (however / therefore) she can't sing or play any instrument.", options: ["however", "therefore"], ans: "however" },
+            { q: "9. She wanted to prepare for the exam; (therefore / however) she turned off her mobile phone.", options: ["therefore", "however"], ans: "therefore" },
+            { q: "10. He isn't a member of the chess club; (therefore / otherwise) He won't join the chess competition.", options: ["therefore", "otherwise"], ans: "therefore" }
+        ];
+
+        const ex6Data = [
+            { text: "1. He was getting late; ______, he managed to be on time.", ans: "however" },
+            { text: "2. John is rude; ______, nobody talks to him.", ans: "therefore" },
+            { text: "3. Some children didn't get the sweets; ______, they enjoyed a lot.", ans: "nevertheless" },
+            { text: "4. He was badly hurt; ______, he recovered fast.", ans: "however" },
+            { text: "5. They scolded him for his choice; ______, he was a little sad.", ans: "therefore" },
+            { text: "6. He studies well; ______, he scores well.", ans: "therefore" },
+            { text: "7. Jack has much on hands experience; ______, he was not into the panel.", ans: "however" },
+            { text: "8. Students were not allowed to dance; ______, they enjoyed a lot.", ans: "nevertheless" },
+            { text: "9. Everybody wants to succeed; ______, not everyone puts in the required effort.", ans: "however" },
+            { text: "10. Charlie must be driving back to home; ______, he is not receiving your call.", ans: "therefore" }
+        ];
+
+        const ex7Data = [
+            { q: "1. Social networking is a technology that is becoming more and more (1) ______ these days", opts: ["A. excited", "B. unpopular", "C. popular", "D. interesting"], ans: "C" },
+            { q: "2. Social media websites like Facebook, Instagram, Twitter, and others (2) ______ people to communicate", opts: ["A. enable", "B. connects", "C. connecting", "D. cannot"], ans: "A" },
+            { q: "3. When we look at social media's positive aspects, there (3) ______ several advantages.", opts: ["A. is", "B. are", "C. isn't", "D. aren't"], ans: "B" },
+            { q: "4. (4) ______ social media is not used responsibly, it can have detrimental effects", opts: ["A. because", "B. Although", "C. If", "D. While"], ans: "C" },
+            { q: "5. Social Media is (5) ______ when used excessively but useful if used productively.", opts: ["A. harmless", "B. better", "C. benefits", "D. harmful"], ans: "D" }
+        ];
+
+        const ex8Data = [
+            { q: "1. What is the passage mainly about?", opts: ["A. The drawbacks of Facebook in student's learning.", "B. The benefits of Facebook in student's learning.", "C. The development of Facebook in student's learning."], ans: "B" },
+            { q: "2. What does the word 'it' in line 4 mean?", opts: ["A. Facebook", "B. Entertainment", "C. School life"], ans: "A" },
+            { q: "3. According to the passage, where can students find like-minded ones?", opts: ["A. Facebook Messenger", "B. Facebook comments", "C. Facebook pages"], ans: "C" },
+            { q: "4. Why is Facebook called the biggest knowledge platform?", opts: ["A. Because students can gain a large number of free learning materials.", "B. Because students can enjoy a large number of English videos.", "C. Because students can talk to a large number of knowledgeable users there."], ans: "A" },
+            { q: "5. Which of the following is NOT the main purpose when students form a learning group on Facebook?", opts: ["A. Preparing for class presentations.", "B. Venting their negative thoughts on their school life.", "C. Discussing hot topics with each other."], ans: "B" }
+        ];
+
+        const ex9Data = [
+            { prompt: "1. Teenagers / should / play / sport / keep fit.", ans: "Teenagers should play sports to keep fit." },
+            { prompt: "2. Teens / may feel / stressed / when / classmates / do better / than them / school.", ans: "Teens may feel stressed when their classmates do better than them at school." },
+            { prompt: "3. Some teens / participate / school clubs / make / new / friends.", ans: "Some teens participate in school clubs to make new friends." },
+            { prompt: "4. I/ be/ interested / joining/ some club/ activities", ans: "I am interested in joining some club activities." },
+            { prompt: "5. Although / I play chess/ relax, I/ be/ now/ confident enough/ enter / competition", ans: "Although I play chess to relax, I am now confident enough to enter the competition." },
+            { prompt: "6. Some teens / feel / pressure / because / they / want / fit / a group.", ans: "Some teens feel pressure because they want to fit in a group." },
+            { prompt: "7. main causes / teen stress / include / peer pressure / schoolwork pressure / pressure from parents.", ans: "The main causes of teen stress include peer pressure, schoolwork pressure, and pressure from parents." },
+            { prompt: "8. Teenagers/ join/ the Teen Line/ forum/ because/ enjoy/ chat/ other teens.", ans: "Teenagers join the Teen Line forum because they enjoy chatting with other teens." },
+            { prompt: "9. Teens/ not know/ how/ avoid bullies/ but / they not want/ tell / their teachers.", ans: "Teens do not know how to avoid bullies, but they do not want to tell their teachers." },
+            { prompt: "10. You/ should/ stop/ spend/ so much/ time/ play/ video games;/ otherwise, /you / get addicted.", ans: "You should stop spending so much time playing video games; otherwise, you will get addicted." }
+        ];
+
+        const ex10Data = [
+            { orig: "1. Mai is the head of the music club. She knows the members very well. (SO)", ans: "Mai is the head of the music club, so she knows the members very well." },
+            { orig: "2. Lan wanted to go to the party. She couldn't choose a suitable dress. (BUT)", ans: "Lan wanted to go to the party, but she couldn't choose a suitable dress." },
+            { orig: "3. Tom felt stressed. He tried to finish his homework. (HOWEVER)", ans: "Tom felt stressed; however, he tried to finish his homework." },
+            { orig: "4. We will have a short holiday. We will feel very stressed. (OTHERWISE)", ans: "We will have a short holiday; otherwise, we will feel very stressed." },
+            { orig: "5. Schoolwork causes teens a lot of pressure. They also feel pressure from their parents. (AND)", ans: "Schoolwork causes teens a lot of pressure, and they also feel pressure from their parents." },
+            { orig: "6. He is sick. He didn't attend the meeting. (THEREFORE)", ans: "He is sick; therefore, he didn't attend the meeting." },
+            { orig: "7. He is a good student. He was also active in sports. (THEREFORE)", ans: "He is a good student; therefore, he was also active in sports." },
+            { orig: "8. She loved children. She had no time to play with them. (HOWEVER)", ans: "She loved children; however, she had no time to play with them." },
+            { orig: "9. Teachers should always talk to a sad child. He might need help. (FOR)", ans: "Teachers should always talk to a sad child, for he might need help." },
+            { orig: "10. Ann is very tired. She helps her mother with the housework. (HOWEVER)", ans: "Ann is very tired; however, she helps her mother with the housework." }
+        ];
+
+        let showSolutions = false;
+
+        // Initialize Render
+        document.addEventListener('DOMContentLoaded', () => {
+            initDragAndDrop();
+            renderEx3();
+            renderEx4();
+            renderEx5();
+            renderEx6();
+            renderEx7();
+            renderEx8();
+            renderEx9();
+            renderEx10();
+            updateScores();
+        });
+
+        // Toggle Section Visibility
+        function toggleSection(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(-90deg)';
+            }
+        }
+
+        // Drag & Drop Handlers for Ex 1
+        function initDragAndDrop() {
+            const items = document.querySelectorAll('.drag-item');
+            const zones = document.querySelectorAll('.drop-zone');
+            const wordBank = document.getElementById('ex1-wordbank');
+
+            items.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', item.dataset.word);
+                    e.dataTransfer.setData('source', 'drag');
+                    setTimeout(() => item.classList.add('opacity-40'), 0);
+                });
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('opacity-40');
+                });
+            });
+
+            zones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over');
+                });
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    const word = e.dataTransfer.getData('text/plain');
+                    const draggedItem = document.querySelector(`.drag-item[data-word="${word}"]`);
+                    
+                    if (draggedItem) {
+                        // If zone already has an item, send back to wordbank
+                        if (zone.children.length > 0) {
+                            wordBank.appendChild(zone.children[0]);
+                        }
+                        zone.appendChild(draggedItem);
+                        updateScores();
+                    }
+                });
+            });
+
+            // Allow returning item to wordbank
+            wordBank.addEventListener('dragover', (e) => e.preventDefault());
+            wordBank.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const word = e.dataTransfer.getData('text/plain');
+                const draggedItem = document.querySelector(`.drag-item[data-word="${word}"]`);
+                if (draggedItem) {
+                    wordBank.appendChild(draggedItem);
+                    updateScores();
+                }
+            });
+        }
+
+        // Render Functions
+        function renderEx3() {
+            const container = document.getElementById('ex3-questions');
+            container.innerHTML = ex3Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <span>${item.q}</span>
+                    <div class="flex items-center gap-3">
+                        <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="ex3_${idx}" value="S" data-ex="3" data-correct="${item.ans}" onchange="updateScores()">
+                            <span class="font-semibold text-blue-800">S (Simple)</span>
+                        </label>
+                        <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="ex3_${idx}" value="C" data-ex="3" data-correct="${item.ans}" onchange="updateScores()">
+                            <span class="font-semibold text-purple-800">C (Compound)</span>
+                        </label>
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderEx4() {
+            const container = document.getElementById('ex4-questions');
+            container.innerHTML = ex4Data.map((item, idx) => {
+                const parts = item.text.split('_____');
+                return `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        ${parts[0]}
+                        <select data-ex="4" data-correct="${item.ans}" onchange="updateScores()" class="border border-gray-300 rounded px-2 py-1 bg-white focus:outline-none focus:border-blue-500 font-medium">
+                            <option value="">-- Chọn --</option>
+                            <option value="and">and</option>
+                            <option value="but">but</option>
+                            <option value="or">or</option>
+                            <option value="so">so</option>
+                            <option value="for">for</option>
+                        </select>
+                        ${parts[1]}
+                    </div>
+                    <span class="feedback text-xs font-bold"></span>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function renderEx5() {
+            const container = document.getElementById('ex5-questions');
+            container.innerHTML = ex5Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <span>${item.q}</span>
+                    <div class="flex items-center gap-2">
+                        ${item.options.map(opt => `
+                            <label class="inline-flex items-center gap-1 cursor-pointer bg-gray-100 px-2.5 py-1 rounded border border-gray-200">
+                                <input type="radio" name="ex5_${idx}" value="${opt}" data-ex="5" data-correct="${item.ans}" onchange="updateScores()">
+                                <span class="font-medium">${opt}</span>
+                            </label>
+                        `).join('')}
+                        <span class="feedback text-xs font-bold"></span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderEx6() {
+            const container = document.getElementById('ex6-questions');
+            container.innerHTML = ex6Data.map((item, idx) => {
+                const parts = item.text.split('______');
+                return `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        ${parts[0]}
+                        <input type="text" data-ex="6" data-correct="${item.ans}" oninput="updateScores()" class="border-b-2 border-purple-400 focus:border-purple-600 outline-none px-2 py-0.5 w-32 text-center font-medium">
+                        ${parts[1]}
+                    </div>
+                    <span class="feedback text-xs font-bold"></span>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function renderEx7() {
+            const container = document.getElementById('ex7-questions');
+            container.innerHTML = ex7Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50">
+                    <p class="font-medium mb-2">${item.q}</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        ${item.opts.map(opt => {
+                            const val = opt.charAt(0);
+                            return `
+                            <label class="flex items-center gap-2 p-2 rounded border border-gray-200 bg-white cursor-pointer hover:bg-blue-50">
+                                <input type="radio" name="ex7_${idx}" value="${val}" data-ex="7" data-correct="${item.ans}" onchange="updateScores()">
+                                <span>${opt}</span>
+                            </label>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback text-xs font-bold mt-2"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderEx8() {
+            const container = document.getElementById('ex8-questions');
+            container.innerHTML = ex8Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50">
+                    <p class="font-medium mb-2">${item.q}</p>
+                    <div class="space-y-1">
+                        ${item.opts.map(opt => {
+                            const val = opt.charAt(0);
+                            return `
+                            <label class="flex items-center gap-2 p-2 rounded border border-gray-200 bg-white cursor-pointer hover:bg-indigo-50">
+                                <input type="radio" name="ex8_${idx}" value="${val}" data-ex="8" data-correct="${item.ans}" onchange="updateScores()">
+                                <span>${opt}</span>
+                            </label>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback text-xs font-bold mt-2"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderEx9() {
+            const container = document.getElementById('ex9-questions');
+            container.innerHTML = ex9Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 space-y-2">
+                    <div class="font-medium text-gray-700">${item.prompt}</div>
+                    <input type="text" data-ex="9" data-correct="${item.ans}" oninput="updateScores()" placeholder="Nhập câu hoàn chỉnh vào đây..." class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    <div class="feedback text-xs font-semibold"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderEx10() {
+            const container = document.getElementById('ex10-questions');
+            container.innerHTML = ex10Data.map((item, idx) => `
+                <div class="p-3 rounded-lg border border-gray-100 hover:bg-gray-50 space-y-2">
+                    <div class="font-medium text-gray-700">${item.orig}</div>
+                    <input type="text" data-ex="10" data-correct="${item.ans}" oninput="updateScores()" placeholder="Viết lại câu hoàn chỉnh..." class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    <div class="feedback text-xs font-semibold"></div>
+                </div>
+            `).join('');
+        }
+
+        // Clean Text Helper for String Comparison
+        function cleanStr(str) {
+            return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        // Global Score & Evaluation Engine
+        function updateScores() {
+            let totalCorrect = 0;
+            const maxScore = 85; // 8+10+10+10+10+10+5+5+10+10
+
+            // EX 1
+            let ex1Score = 0;
+            document.querySelectorAll('.drop-zone[data-ex="1"]').forEach(zone => {
+                const child = zone.querySelector('.drag-item');
+                const feedback = zone.nextElementSibling;
+                if (child) {
+                    const userVal = child.dataset.word;
+                    const correctVal = zone.dataset.correct;
+                    if (userVal === correctVal) {
+                        ex1Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback-msg text-xs mt-1 font-semibold text-green-600 block';
+                    } else {
+                        feedback.textContent = `✗ Sai (${correctVal})`;
+                        feedback.className = 'feedback-msg text-xs mt-1 font-semibold text-red-600 block';
+                    }
+                } else {
+                    if (showSolutions) {
+                        feedback.textContent = `Gợi ý: ${zone.dataset.correct}`;
+                        feedback.className = 'feedback-msg text-xs mt-1 font-semibold text-purple-600 block';
+                    } else {
+                        feedback.className = 'feedback-msg text-xs mt-1 font-semibold hidden';
+                    }
+                }
+            });
+            document.getElementById('score-ex1').textContent = `${ex1Score}/8`;
+            totalCorrect += ex1Score;
+
+            // EX 2
+            let ex2Score = 0;
+            document.querySelectorAll('input[data-ex="2"]').forEach(input => {
+                const userVal = input.value.trim().toLowerCase();
+                const correctVal = input.dataset.correct.toLowerCase();
+                const feedback = input.parentElement.nextElementSibling;
+                if (userVal) {
+                    if (userVal === correctVal) {
+                        ex2Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600';
+                    } else {
+                        feedback.textContent = `✗ Sai (${correctVal})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${correctVal}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600';
+                }
+            });
+            document.getElementById('score-ex2').textContent = `${ex2Score}/10`;
+            totalCorrect += ex2Score;
+
+            // EX 3
+            let ex3Score = 0;
+            for (let i = 0; i < ex3Data.length; i++) {
+                const selected = document.querySelector(`input[name="ex3_${i}"]:checked`);
+                const parent = document.querySelectorAll('#ex3-questions > div')[i];
+                const feedback = parent.querySelector('.feedback');
+                if (selected) {
+                    if (selected.value === ex3Data[i].ans) {
+                        ex3Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600';
+                    } else {
+                        feedback.textContent = `✗ Sai (${ex3Data[i].ans})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${ex3Data[i].ans}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600';
+                }
+            }
+            document.getElementById('score-ex3').textContent = `${ex3Score}/10`;
+            totalCorrect += ex3Score;
+
+            // EX 4
+            let ex4Score = 0;
+            document.querySelectorAll('select[data-ex="4"]').forEach(select => {
+                const userVal = select.value;
+                const correctVal = select.dataset.correct;
+                const feedback = select.parentElement.nextElementSibling;
+                if (userVal) {
+                    if (userVal === correctVal) {
+                        ex4Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600';
+                    } else {
+                        feedback.textContent = `✗ Sai (${correctVal})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${correctVal}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600';
+                }
+            });
+            document.getElementById('score-ex4').textContent = `${ex4Score}/10`;
+            totalCorrect += ex4Score;
+
+            // EX 5
+            let ex5Score = 0;
+            for (let i = 0; i < ex5Data.length; i++) {
+                const selected = document.querySelector(`input[name="ex5_${i}"]:checked`);
+                const parent = document.querySelectorAll('#ex5-questions > div')[i];
+                const feedback = parent.querySelector('.feedback');
+                if (selected) {
+                    if (selected.value === ex5Data[i].ans) {
+                        ex5Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600';
+                    } else {
+                        feedback.textContent = `✗ Sai (${ex5Data[i].ans})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${ex5Data[i].ans}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600';
+                }
+            }
+            document.getElementById('score-ex5').textContent = `${ex5Score}/10`;
+            totalCorrect += ex5Score;
+
+            // EX 6
+            let ex6Score = 0;
+            document.querySelectorAll('input[data-ex="6"]').forEach(input => {
+                const userVal = input.value.trim().toLowerCase();
+                const correctVal = input.dataset.correct.toLowerCase();
+                const feedback = input.parentElement.nextElementSibling;
+                if (userVal) {
+                    if (userVal === correctVal) {
+                        ex6Score++;
+                        feedback.textContent = '✓ Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600';
+                    } else {
+                        feedback.textContent = `✗ Sai (${correctVal})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${correctVal}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600';
+                }
+            });
+            document.getElementById('score-ex6').textContent = `${ex6Score}/10`;
+            totalCorrect += ex6Score;
+
+            // EX 7
+            let ex7Score = 0;
+            for (let i = 0; i < ex7Data.length; i++) {
+                const selected = document.querySelector(`input[name="ex7_${i}"]:checked`);
+                const parent = document.querySelectorAll('#ex7-questions > div')[i];
+                const feedback = parent.querySelector('.feedback');
+                if (selected) {
+                    if (selected.value === ex7Data[i].ans) {
+                        ex7Score++;
+                        feedback.textContent = '✓ Đáp án Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600 mt-2';
+                    } else {
+                        feedback.textContent = `✗ Sai (Đáp án đúng: ${ex7Data[i].ans})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600 mt-2';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${ex7Data[i].ans}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600 mt-2';
+                }
+            }
+            document.getElementById('score-ex7').textContent = `${ex7Score}/5`;
+            totalCorrect += ex7Score;
+
+            // EX 8
+            let ex8Score = 0;
+            for (let i = 0; i < ex8Data.length; i++) {
+                const selected = document.querySelector(`input[name="ex8_${i}"]:checked`);
+                const parent = document.querySelectorAll('#ex8-questions > div')[i];
+                const feedback = parent.querySelector('.feedback');
+                if (selected) {
+                    if (selected.value === ex8Data[i].ans) {
+                        ex8Score++;
+                        feedback.textContent = '✓ Đáp án Đúng';
+                        feedback.className = 'feedback text-xs font-bold text-green-600 mt-2';
+                    } else {
+                        feedback.textContent = `✗ Sai (Đáp án đúng: ${ex8Data[i].ans})`;
+                        feedback.className = 'feedback text-xs font-bold text-red-600 mt-2';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý: ${ex8Data[i].ans}` : '';
+                    feedback.className = 'feedback text-xs font-bold text-purple-600 mt-2';
+                }
+            }
+            document.getElementById('score-ex8').textContent = `${ex8Score}/5`;
+            totalCorrect += ex8Score;
+
+            // EX 9
+            let ex9Score = 0;
+            document.querySelectorAll('input[data-ex="9"]').forEach(input => {
+                const userVal = cleanStr(input.value);
+                const correctVal = cleanStr(input.dataset.correct);
+                const feedback = input.nextElementSibling;
+                if (userVal) {
+                    if (userVal === correctVal) {
+                        ex9Score++;
+                        feedback.textContent = '✓ Rất chính xác!';
+                        feedback.className = 'feedback text-xs font-semibold text-green-600 mt-1';
+                    } else {
+                        feedback.textContent = `Gợi ý đáp án: ${input.dataset.correct}`;
+                        feedback.className = 'feedback text-xs font-semibold text-amber-600 mt-1';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý đáp án: ${input.dataset.correct}` : '';
+                    feedback.className = 'feedback text-xs font-semibold text-purple-600 mt-1';
+                }
+            });
+            document.getElementById('score-ex9').textContent = `${ex9Score}/10`;
+            totalCorrect += ex9Score;
+
+            // EX 10
+            let ex10Score = 0;
+            document.querySelectorAll('input[data-ex="10"]').forEach(input => {
+                const userVal = cleanStr(input.value);
+                const correctVal = cleanStr(input.dataset.correct);
+                const feedback = input.nextElementSibling;
+                if (userVal) {
+                    if (userVal === correctVal) {
+                        ex10Score++;
+                        feedback.textContent = '✓ Rất chính xác!';
+                        feedback.className = 'feedback text-xs font-semibold text-green-600 mt-1';
+                    } else {
+                        feedback.textContent = `Gợi ý đáp án: ${input.dataset.correct}`;
+                        feedback.className = 'feedback text-xs font-semibold text-amber-600 mt-1';
+                    }
+                } else {
+                    feedback.textContent = showSolutions ? `Gợi ý đáp án: ${input.dataset.correct}` : '';
+                    feedback.className = 'feedback text-xs font-semibold text-purple-600 mt-1';
+                }
+            });
+            document.getElementById('score-ex10').textContent = `${ex10Score}/10`;
+            totalCorrect += ex10Score;
+
+            // Update Top Progress Bar & Total Display
+            const percent = Math.round((totalCorrect / maxScore) * 100);
+            document.getElementById('total-score-display').textContent = `${totalCorrect} / ${maxScore}`;
+            document.getElementById('progress-percent-display').textContent = `${percent}%`;
+            document.getElementById('global-progress-bar').style.width = `${percent}%`;
+        }
+
+        // Global Actions
+        function checkAllAnswers() {
+            updateScores();
+            alert(`Bạn đã đạt được ${document.getElementById('total-score-display').textContent} (${document.getElementById('progress-percent-display').textContent})!`);
+        }
+
+        function toggleShowSolutions() {
+            showSolutions = !showSolutions;
+            const btn = document.getElementById('btn-show-solutions');
+            if (showSolutions) {
+                btn.innerHTML = `<i class="fa-solid fa-eye-slash"></i> Ẩn Đáp Án`;
+                btn.className = "bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm";
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-eye"></i> Hiện Đáp Án`;
+                btn.className = "bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm";
+            }
+            updateScores();
+        }
+
+        function resetAll() {
+            if (confirm("Bạn có chắc chắn muốn xóa hết bài làm để bắt đầu lại?")) {
+                showSolutions = false;
+                const btn = document.getElementById('btn-show-solutions');
+                btn.innerHTML = `<i class="fa-solid fa-eye"></i> Hiện Đáp Án`;
+                btn.className = "bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm";
+
+                // Reset inputs & radio selections
+                document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
+                document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+                document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+
+                // Reset Ex 1 Drag items back to bank
+                const wordBank = document.getElementById('ex1-wordbank');
+                document.querySelectorAll('.drop-zone').forEach(zone => {
+                    if (zone.children.length > 0) {
+                        wordBank.appendChild(zone.children[0]);
+                    }
+                });
+
+                updateScores();
+            }
+        }
+    </script>
+</body>
+</html>
