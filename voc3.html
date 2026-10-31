@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Lật Thẻ Từ Vựng - Unit 3: Teenagers</title>
+  <style>
+    :root {
+      --blue: #1769aa;
+      --deep: #104b82;
+      --sky: #eaf5ff;
+      --ink: #183247;
+      --muted: #62788b;
+      --line: #dce8f2;
+      --bg: #f3f7fb;
+      --green: #16865b;
+      --shadow: 0 6px 20px rgba(20,67,105,.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    header {
+      background: linear-gradient(120deg, #1674bd, #10477d);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0 0 2px;
+      font-size: clamp(18px, 3vw, 24px);
+    }
+    header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 12px;
+    }
+    main {
+      width: 100%;
+      margin: 8px auto;
+      padding: 0 8px;
+    }
+    .game-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .subhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .subhead h2 {
+      margin: 0;
+      font-size: 16px;
+      color: var(--deep);
+    }
+    .button-group {
+      display: flex;
+      gap: 6px;
+    }
+    .btn {
+      border: 0;
+      border-radius: 7px;
+      background: var(--blue);
+      color: #fff;
+      padding: 6px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--deep); }
+    .btn.light {
+      background: #fff;
+      color: var(--blue);
+      border: 1px solid #b9d5eb;
+    }
+    .game-status {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      background: var(--sky);
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .game-status strong { color: var(--deep); }
+    
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .game-card {
+      min-height: 58px;
+      border: 1px solid #b8d5ec;
+      border-radius: 8px;
+      background: #e5edf4;
+      color: #28516f;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 4px;
+      overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .game-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-1px);
+    }
+    .game-card.revealed {
+      background: #fff;
+      border: 2px solid #70acd8;
+      color: #174f7e;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .game-card.matched {
+      background: #dff6eb;
+      border-color: #79c6a6;
+      color: #176b4c;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1200px) {
+      .game-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    }
+    @media (max-width: 900px) {
+      .game-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .game-card { min-height: 50px; font-size: 11px; padding: 4px; }
+    }
+    @media (max-width: 400px) {
+      .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .game-card { min-height: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎮 GAME LẬT THẺ TỪ VỰNG</h1>
+    <p>English 8 · Unit 3: Teenagers (60 cặp từ vựng)</p>
+  </header>
+
+  <main>
+    <div class="game-panel">
+      <div class="subhead">
+        <h2>Rèn luyện trí nhớ & Từ vựng</h2>
+        <div class="button-group">
+          <button class="btn light" id="toggleFullscreen">🔲 Toàn màn hình</button>
+          <button class="btn light" id="restartGame">🔄 Chơi lại</button>
+        </div>
+      </div>
+
+      <div class="game-status">
+        <span id="gameScore">Đã ghép: <strong>0 / 60</strong></span>
+        <span id="gameMoves">Lượt lật: <strong>0</strong></span>
+        <span id="gameMessage">Có 120 thẻ úp: Hãy lật mở để tìm 60 cặp Tiếng Anh – Tiếng Việt tương ứng!</span>
+      </div>
+
+      <div class="game-grid" id="gameGrid"></div>
+    </div>
+  </main>
+
+  <script>
+    const words = [
+      ["class forum", "diễn đàn lớp học"],
+      ["midterm test", "bài kiểm tra giữa kì"],
+      ["stress", "sự căng thẳng"],
+      ["stressful", "căng thẳng"],
+      ["stay calm", "giữ bình tĩnh"],
+      ["pressure", "áp lực"],
+      ["discuss", "thảo luận"],
+      ["user-friendly", "thân thiện với người dùng"],
+      ["craft", "thủ công (đồ, nghề,...)"],
+      ["a variety of", "nhiều loại, đa dạng"],
+      ["suit", "phù hợp"],
+      ["interest", "sự quan tâm, sở thích"],
+      ["interesting", "thú vị, hấp dẫn"],
+      ["competition", "cuộc thi"],
+      ["usual", "thường lệ"],
+      ["creative", "sáng tạo"],
+      ["essay", "bài luận"],
+      ["plenty of", "nhiều"],
+      ["schoolwork", "bài trên lớp"],
+      ["coach", "huấn luyện viên"],
+      ["practice session", "tiết luyện tập"],
+      ["social media", "mạng xã hội"],
+      ["participate in", "tham gia vào"],
+      ["upload", "tải lên"],
+      ["browse", "đọc lướt, tìm (trên mạng)"],
+      ["connect", "kết nối"],
+      ["notifications", "sự thông báo"],
+      ["account", "tài khoản"],
+      ["expectation", "sự mong đợi"],
+      ["bully", "bắt nạt"],
+      ["tournament", "giải đấu"],
+      ["curious", "tò mò"],
+      ["ensure", "đảm bảo"],
+      ["a full-day city tour", "chuyến tham quan thành phố nguyên ngày"],
+      ["interview", "phỏng vấn"],
+      ["mature", "trưởng thành, chín chắn"],
+      ["annoy", "làm khó chịu"],
+      ["compound", "gồm nhiều phần; hỗn hợp"],
+      ["tolerant", "khoan dung"],
+      ["talkative", "hay nói"],
+      ["cheat", "gian lận"],
+      ["however", "tuy nhiên"],
+      ["therefore", "vì vậy, do đó"],
+      ["otherwise", "nếu không thì"],
+      ["fail", "thi trượt/ thất bại"],
+      ["sensitive", "nhạy cảm"],
+      ["show off", "khoe khoang"],
+      ["beforehand", "trước đó"],
+      ["focused", "tập trung, chú ý"],
+      ["concentrate", "tập trung, chú tâm"],
+      ["member", "thành viên"],
+      ["community", "cộng đồng"],
+      ["community service", "hoạt động phục vụ cộng đồng"],
+      ["parent", "cha, mẹ; phụ huynh"],
+      ["parental", "thuộc về cha mẹ"],
+      ["parental pressure", "áp lực từ cha mẹ"],
+      ["peer pressure", "áp lực từ bạn bè đồng trang lứa"],
+      ["solution", "giải pháp"],
+      ["bully (v/n)", "kẻ bắt nạt / bắt nạt"],
+      ["bullying", "sự bắt nạt"]
+    ];
+
+    const $ = id => document.getElementById(id);
+    let gameDeck = [], opened = [], matched = 0, moves = 0, locked = false;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function playAudio(text) {
+      if (!("speechSynthesis" in window)) return;
+      speechSynthesis.cancel();
+      const cleanText = text.replace(/\s*\/.*$/, "").replace(/\s*\(.*\)/, "");
+      let u = new SpeechSynthesisUtterance(cleanText);
+      u.lang = "en-GB";
+      u.rate = 0.88;
+      speechSynthesis.speak(u);
+    }
+
+    function initGame() {
+      gameDeck = shuffle(words.flatMap((p, i) => [
+        { id: i, kind: "word", text: p[0] },
+        { id: i, kind: "meaning", text: p[1] }
+      ]));
+      opened = [];
+      matched = 0;
+      moves = 0;
+      locked = false;
+      $("gameGrid").innerHTML = "";
+
+      gameDeck.forEach((c, i) => {
+        let b = document.createElement("button");
+        b.className = "game-card";
+        b.textContent = "❓";
+        b.dataset.i = i;
+        b.onclick = () => turnCard(i, b);
+        $("gameGrid").appendChild(b);
+      });
+      updateGame();
+    }
+
+    function updateGame() {
+      $("gameScore").innerHTML = `Đã ghép: <strong>${matched} / ${words.length}</strong> cặp`;
+      $("gameMoves").innerHTML = `Lượt lật: <strong>${moves}</strong>`;
+      $("gameMessage").textContent = matched === words.length
+        ? `🎉 XUẤT SẮC! Bạn đã ghi nhớ và ghép đúng toàn bộ ${words.length}/${words.length} cặp từ vựng Unit 3!`
+        : `Có ${words.length * 2} thẻ úp: Hãy lật mở để tìm ${words.length} cặp Tiếng Anh – Tiếng Việt tương ứng!`;
+    }
+
+    function turnCard(i, b) {
+      if (locked || b.classList.contains("revealed") || b.classList.contains("matched")) return;
+
+      let c = gameDeck[i];
+      b.textContent = c.text;
+      b.classList.add("revealed");
+
+      if (c.kind === "word") {
+        playAudio(c.text);
+      }
+
+      opened.push({ i, b, c });
+
+      if (opened.length === 2) {
+        moves++;
+        locked = true;
+        let [a, d] = opened;
+
+        if (a.c.id === d.c.id && a.c.kind !== d.c.kind) {
+          a.b.classList.add("matched");
+          d.b.classList.add("matched");
+          matched++;
+          opened = [];
+          locked = false;
+          updateGame();
+        } else {
+          setTimeout(() => {
+            [a, d].forEach(x => {
+              x.b.classList.remove("revealed");
+              x.b.textContent = "❓";
+            });
+            opened = [];
+            locked = false;
+            updateGame();
+          }, 850);
+          updateGame();
+        }
+      }
+    }
+
+    const fsBtn = $("toggleFullscreen");
+    fsBtn.onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          alert(`Không thể bật chế độ toàn màn hình: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    };
+
+    document.addEventListener("fullscreenchange", () => {
+      fsBtn.textContent = document.fullscreenElement ? "❌ Thoát toàn màn hình" : "🔲 Toàn màn hình";
+    });
+
+    $("restartGame").onclick = initGame;
+    initGame();
+  </script>
+</body>
+</html>
